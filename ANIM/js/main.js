@@ -20,14 +20,14 @@ var rxKfJSON = {
     interpolation: THREE.InterpolateSmooth
 }
 var clipJSON = {
-    duration: 3,
+    duration: 10,
     tracks: [
         posKfJSON,
         rxKfJSON
     ]
 }
 
-var clip, mixer;
+var clip, mixer = null;
 
 var loader = new THREE.FileLoader();
 loader = loader.load(
@@ -46,6 +46,7 @@ loader = loader.load(
 	    rxKfJSON.values[idx] = toks[4];
 	    ++idx;
 	}
+	clipJSON.duration = posKfJSON.times[idx-1] - 1;
 	clip = THREE.AnimationClip.parse(clipJSON);
     },
     function(xhr) {},
@@ -124,7 +125,7 @@ function animate() {
 
     requestAnimationFrame( animate );
 
-    mixer.update(0.01);
+    if ( mixer ) mixer.update(0.01);
     
     render();
 
