@@ -46,7 +46,7 @@ loader = loader.load(
 	    rxKfJSON.values[idx] = toks[4];
 	    ++idx;
 	}
-	clipJSON.duration = posKfJSON.times[idx-1] - 1;
+	clipJSON.duration = posKfJSON.times[idx-1] + 1;
 	clip = THREE.AnimationClip.parse(clipJSON);
     },
     function(xhr) {},
