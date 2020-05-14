@@ -31,7 +31,7 @@ var clip, mixer = null;
 
 var loader = new THREE.FileLoader();
 loader = loader.load(
-    'walk_trj.csv',
+    'R_walk_trj.csv',
     function(data) {
 	var tmp = data.split("\n");
 	var idx = 0;
@@ -44,9 +44,9 @@ loader = loader.load(
 	    posKfJSON.values[idx*3+2] = toks[3];
 	    rxKfJSON.times[idx]  = toks[0];
 	    rxKfJSON.values[idx] = toks[4];
+	    clipJSON.duration = posKfJSON.times[idx] | 0; // conv to int
 	    ++idx;
 	}
-	clipJSON.duration = posKfJSON.times[idx-1] + 1;
 	clip = THREE.AnimationClip.parse(clipJSON);
     },
     function(xhr) {},
@@ -65,7 +65,7 @@ function init() {
 
     camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
     camera.position.z = 25;
-    controls = new THREE.TrackballControls(camera);
+    controls = new THREE.TrackballControls( camera );
 
     // scene
 
